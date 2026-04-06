@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="NEXUS AI Platform - Your intelligent assistant powered by Gemini 2.5 Flash">
+<title>NEXUS AI Platform v2.0</title>
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<!-- NOISE OVERLAY -->
+<svg class="noise" xmlns="http://www.w3.org/2000/svg"><filter id="n"><feTurbulence type="fractalNoise" baseFrequency="0.8" numOctaves="4" stitchTiles="stitch"/></filter><rect width="100%" height="100%" filter="url(#n)" opacity="0.4"/></svg>
+
+<!-- AUTH SCREEN -->
+<div id="auth-screen">
+<div class="auth-card">
+<div class="auth-logo"><span class="icon"></span><h1>NEXUS</h1><p style="color:var(--text3);font-size:13px;margin-top:4px">AI Platform v2.0</p></div>
+<div class="auth-tabs"><div class="auth-tab active" onclick="switchAuthTab('login')">Login</div><div class="auth-tab" onclick="switchAuthTab('register')">Register</div></div>
+<div id="auth-error" class="auth-error" style="display:none"></div>
+<!-- LOGIN FORM -->
+<div id="login-form">
+<input class="auth-input" id="login-id" placeholder="Username or Email" autocomplete="username">
+<input class="auth-input" id="login-pw" type="password" placeholder="Password" autocomplete="current-password">
+<button class="auth-btn" id="login-btn" onclick="doLogin()">Sign In</button>
+</div>
+<!-- REGISTER FORM -->
+<div id="register-form" style="display:none">
+<input class="auth-input" id="reg-user" placeholder="Username" autocomplete="username">
+<input class="auth-input" id="reg-email" placeholder="Email" type="email" autocomplete="email">
+<input class="auth-input" id="reg-pw" placeholder="Password" type="password" autocomplete="new-password">
+<input class="auth-input" id="reg-pw2" placeholder="Confirm Password" type="password">
+<button class="auth-btn" id="reg-btn" onclick="doRegister()">Create Account</button>
+</div>
+</div>
+</div>
+
+<!-- MAIN PLATFORM -->
+<div id="platform" style="display:none">
+<!-- HEADER -->
+<header id="app-header">
+<div class="header-left"><span class="icon" style="width:10px;height:10px;background:var(--accent);border-radius:2px;display:inline-block"></span><h1>NEXUS</h1><span class="version-badge">v2.0</span></div>
+<nav class="header-nav">
+<button class="mode-btn active" data-mode="general" onclick="switchMode('general')">⚡ General AI</button>
+<button class="mode-btn" data-mode="business" onclick="switchMode('business')">📈 Business</button>
+<button class="mode-btn" data-mode="research" onclick="switchMode('research')">🔬 Research</button>
+<button class="mode-btn" data-mode="study" onclick="switchMode('study')">🎓 Study</button>
+<button class="mode-btn" data-mode="personal" onclick="switchMode('personal')">✨ Personalise</button>
+</nav>
+<div class="header-right"><span class="username-display" id="username-display"></span><button class="pro-btn">Pro Plan</button><button class="logout-btn" onclick="doLogout()">Logout</button></div>
+</header>
+
+<!-- ═══ GENERAL AI MODE ═══ -->
+<div class="page active" id="page-general">
+<div class="hero"><div class="hero-tags"><span class="hero-tag" style="border-color:var(--accent);color:var(--accent)">⚡ General AI Mode</span><span class="hero-tag" style="border-color:var(--green);color:var(--green)">● Online</span><span class="hero-tag" style="border-color:var(--teal);color:var(--teal)">Web Search Active</span></div><h2>Your intelligent assistant, powered by Gemini 2.5 Flash</h2><p>Search the web, analyze documents, generate code, and more — all in one place.</p></div>
+<div class="layout-row">
+<div class="layout-main">
+<div class="chat-box" id="general-chat">
+<div class="chat-messages" id="general-messages"></div>
+<div class="chat-input-row"><textarea id="general-input" rows="1" placeholder="Ask anything..." onkeydown="handleChatKey(event,'general')"></textarea><button class="send-btn" id="general-send" onclick="sendGeneralChat()">➤</button></div>
+</div>
+</div>
+<div class="layout-sidebar">
+<div class="card"><div class="card-title">🔧 Capabilities</div><ul class="cap-list"><li>Web Crawling</li><li>PDF Analysis</li><li>Code Generation</li><li>Image Understanding</li><li>Multi-turn Memory</li></ul></div>
+<div class="upload-zone" onclick="document.getElementById('general-file').click()">📎 Upload Document<br><span style="font-size:12px;color:var(--text3)">PDF files supported</span><input type="file" id="general-file" accept=".pdf" style="display:none" onchange="uploadGeneralDoc(this)"></div>
+<div class="card"><div class="card-title">📊 Session Stats</div><div class="stats-grid"><div class="stat-item"><div class="num" id="stat-queries">0</div><div class="lbl">Queries</div></div><div class="stat-item"><div class="num" id="stat-searches">0</div><div class="lbl">Searches</div></div><div class="stat-item"><div class="num" id="stat-tokens">0</div><div class="lbl">Tokens</div></div><div class="stat-item"><div class="num" id="stat-docs">0</div><div class="lbl">Docs</div></div></div></div>
+</div>
+</div>
+</div>
+
+<!-- ═══ BUSINESS MODE ═══ -->
+<div class="page" id="page-business">
+<div class="ticker-wrap"><div class="ticker" id="ticker"><span>NVDA $875.40 <span class="up">+3.2%</span></span><span>MSFT $415.20 <span class="up">+1.8%</span></span><span>GOOGL $165.80 <span class="down">-0.6%</span></span><span>AAPL $188.50 <span class="up">+0.9%</span></span><span>AMZN $192.30 <span class="up">+2.1%</span></span><span>BTC $67,420 <span class="up">+0.4%</span></span><span>ETH $3,512 <span class="up">+1.5%</span></span><span>META $520.10 <span class="up">+2.7%</span></span><span>TSLA $245.60 <span class="down">-1.3%</span></span><span>NVDA $875.40 <span class="up">+3.2%</span></span><span>MSFT $415.20 <span class="up">+1.8%</span></span><span>GOOGL $165.80 <span class="down">-0.6%</span></span><span>AAPL $188.50 <span class="up">+0.9%</span></span><span>AMZN $192.30 <span class="up">+2.1%</span></span><span>BTC $67,420 <span class="up">+0.4%</span></span><span>ETH $3,512 <span class="up">+1.5%</span></span><span>META $520.10 <span class="up">+2.7%</span></span><span>TSLA $245.60 <span class="down">-1.3%</span></span></div></div>
+<div class="tab-bar" id="biz-tabs"><button class="tab-btn active" onclick="switchBizTab(0)">📊 Market Dashboard</button><button class="tab-btn" onclick="switchBizTab(1)">📋 Document Intelligence</button><button class="tab-btn" onclick="switchBizTab(2)">🏆 Competitors</button><button class="tab-btn" onclick="switchBizTab(3)">💡 Idea Analyser</button><button class="tab-btn" onclick="switchBizTab(4)">💬 Business AI</button></div>
+<!-- BIZ TAB 0: MARKET DASHBOARD -->
+<div class="tab-content active" id="biz-tab-0">
+<div class="kpi-row">
+<div class="kpi-card"><div class="kpi-label">Revenue</div><div class="kpi-value" style="color:var(--green)">$2.4M</div><div class="kpi-delta up">↑ 18.3%</div><div class="mini-chart"><div style="height:40%"></div><div style="height:55%"></div><div style="height:45%"></div><div style="height:65%"></div><div style="height:70%"></div><div style="height:80%"></div><div style="height:100%"></div></div></div>
+<div class="kpi-card"><div class="kpi-label">Market Cap</div><div class="kpi-value" style="color:var(--green)">$48.2B</div><div class="kpi-delta up">↑ 7.1%</div><div class="mini-chart"><div style="height:50%"></div><div style="height:60%"></div><div style="height:55%"></div><div style="height:70%"></div><div style="height:65%"></div><div style="height:85%"></div><div style="height:90%"></div></div></div>
+<div class="kpi-card"><div class="kpi-label">Gross Margin</div><div class="kpi-value" style="color:var(--red)">62.4%</div><div class="kpi-delta down">↓ 1.2%</div><div class="mini-chart"><div style="height:90%"></div><div style="height:85%"></div><div style="height:80%"></div><div style="height:75%"></div><div style="height:70%"></div><div style="height:65%"></div><div style="height:60%"></div></div></div>
+<div class="kpi-card"><div class="kpi-label">Active Users</div><div class="kpi-value" style="color:var(--green)">128K</div><div class="kpi-delta up">↑ 24.5%</div><div class="mini-chart"><div style="height:30%"></div><div style="height:40%"></div><div style="height:50%"></div><div style="height:60%"></div><div style="height:75%"></div><div style="height:85%"></div><div style="height:100%"></div></div></div>
+</div>
+<div class="grid-2">
+<div class="card"><div class="card-title">Revenue by Segment</div><div style="margin-bottom:14px"><div style="display:flex;justify-content:space-between;font-size:13px;margin-bottom:4px"><span>Enterprise SaaS</span><span style="color:var(--green)">70%</span></div><div class="progress-bar"><div class="fill" style="width:70%;background:var(--green)"></div></div></div><div style="margin-bottom:14px"><div style="display:flex;justify-content:space-between;font-size:13px;margin-bottom:4px"><span>API Services</span><span style="color:var(--accent)">50%</span></div><div class="progress-bar"><div class="fill" style="width:50%;background:var(--accent)"></div></div></div><div style="margin-bottom:14px"><div style="display:flex;justify-content:space-between;font-size:13px;margin-bottom:4px"><span>Professional Services</span><span style="color:var(--amber)">28%</span></div><div class="progress-bar"><div class="fill" style="width:28%;background:var(--amber)"></div></div></div><div><div style="display:flex;justify-content:space-between;font-size:13px;margin-bottom:4px"><span>Marketplace</span><span style="color:var(--purple)">15%</span></div><div class="progress-bar"><div class="fill" style="width:15%;background:var(--purple)"></div></div></div></div>
+<div class="card"><div class="card-title">Market Sentiment</div><div style="text-align:center"><svg class="donut-chart" viewBox="0 0 42 42"><circle cx="21" cy="21" r="15.9" fill="none" stroke="var(--bg4)" stroke-width="5"/><circle cx="21" cy="21" r="15.9" fill="none" stroke="var(--green)" stroke-width="5" stroke-dasharray="60 40" stroke-dashoffset="25" stroke-linecap="round"/><circle cx="21" cy="21" r="15.9" fill="none" stroke="var(--amber)" stroke-width="5" stroke-dasharray="20 80" stroke-dashoffset="65" stroke-linecap="round"/><circle cx="21" cy="21" r="15.9" fill="none" stroke="var(--red)" stroke-width="5" stroke-dasharray="20 80" stroke-dashoffset="85" stroke-linecap="round"/></svg><div style="display:flex;justify-content:center;gap:16px;margin-top:12px;font-size:12px"><span style="color:var(--green)">● 60% Bullish</span><span style="color:var(--amber)">● 20% Neutral</span><span style="color:var(--red)">● 20% Bearish</span></div></div></div>
+</div>
+</div>
+<!-- BIZ TAB 1: DOC INTELLIGENCE -->
+<div class="tab-content" id="biz-tab-1">
+<div class="upload-zone" id="biz-doc-upload" onclick="document.getElementById('biz-doc-file').click()">📋 Upload Business Document<br><span style="font-size:12px;color:var(--text3)">Upload a PDF for AI-powered analysis</span><input type="file" id="biz-doc-file" accept=".pdf" style="display:none" onchange="uploadBizDoc(this)"></div>
+<div id="biz-doc-loading" class="loading-text" style="display:none"><div class="spinner"></div>Analysing document...</div>
+<div id="biz-doc-results" style="display:none"></div>
+</div>
+<!-- BIZ TAB 2: COMPETITORS -->
+<div class="tab-content" id="biz-tab-2">
+<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:20px"><h3>Competitor Analysis</h3><button class="action-btn primary" onclick="showCompModal()">+ Add Competitor</button></div>
+<div class="grid-2" id="comp-grid"></div>
+</div>
+<!-- BIZ TAB 3: IDEA ANALYSER -->
+<div class="tab-content" id="biz-tab-3">
+<div class="layout-row"><div class="layout-main"><div class="card" style="margin-bottom:16px"><div class="card-title">💡 Describe Your Business Idea</div><textarea class="auth-input" id="idea-input" rows="5" placeholder="Describe your business idea in detail..." style="margin-bottom:0;resize:vertical"></textarea><button class="action-btn primary" style="margin-top:12px" onclick="analyseIdea()">🚀 Analyse Idea</button></div><div id="idea-loading" class="loading-text" style="display:none"><div class="spinner"></div>Analysing idea...</div><div id="idea-results" style="display:none"></div></div><div class="layout-sidebar"><div class="card" id="idea-sidebar" style="display:none"></div></div></div>
+</div>
+<!-- BIZ TAB 4: BUSINESS AI CHAT -->
+<div class="tab-content" id="biz-tab-4">
+<div class="chat-box" id="biz-chat" style="height:560px"><div class="chat-messages" id="biz-messages"></div><div class="chat-input-row"><textarea id="biz-input" rows="1" placeholder="Ask your business analyst..." onkeydown="handleChatKey(event,'biz')"></textarea><button class="send-btn" onclick="sendBizChat()">➤</button></div></div>
+</div>
+</div>
+
+<!-- ═══ RESEARCH MODE ═══ -->
+<div class="page" id="page-research">
+<div class="hero" style="border-color:rgba(139,92,246,0.2)"><div class="hero-tags"><span class="hero-tag" style="border-color:var(--purple);color:var(--purple)">🔬 Research Mode</span><span class="hero-tag" style="border-color:var(--green);color:var(--green)">● Online</span></div><h2 style="color:var(--purple)">Deep Research & Literature Intelligence</h2><p>Academic research assistant with citation support and literature analysis.</p></div>
+<div class="layout-row"><div class="layout-main">
+<div class="card" style="margin-bottom:16px"><textarea class="auth-input" id="research-query" rows="2" placeholder="Enter your research query..." style="margin-bottom:10px"></textarea><div style="display:flex;gap:8px;flex-wrap:wrap"><button class="action-btn primary" style="background:var(--purple);border-color:var(--purple)" onclick="doDeepSearch()">🔍 Deep Search</button><button class="action-btn" onclick="document.getElementById('research-file').click()">📄 Upload Paper</button><input type="file" id="research-file" accept=".pdf" style="display:none" onchange="uploadResearchPaper(this)"><button class="action-btn" onclick="importDOI()">🔗 Import DOI</button><button class="action-btn" onclick="litMap()">📚 Literature Map</button></div></div>
+<div class="chat-box" id="research-chat" style="height:440px"><div class="chat-messages" id="research-messages"></div><div class="chat-input-row"><textarea id="research-input" rows="1" placeholder="Ask your research assistant..." onkeydown="handleChatKey(event,'research')"></textarea><button class="send-btn" style="background:var(--purple)" onclick="sendResearchChat()">➤</button></div></div>
+</div><div class="layout-sidebar">
+<div class="card"><div class="card-title">🔧 Research Tools</div><div style="display:flex;flex-direction:column;gap:6px"><button class="action-btn" onclick="addResearchTool('Create a citation network map for')">Citation Network Map</button><button class="action-btn" onclick="addResearchTool('Extract and analyze the methodology from')">Methodology Extractor</button><button class="action-btn" onclick="addResearchTool('Analyze trends in')">Trend Analysis</button><button class="action-btn" onclick="addResearchTool('Generate an abstract for')">Abstract Generator</button><button class="action-btn" onclick="addResearchTool('Format this bibliography in APA:')">Bibliography Formatter</button><button class="action-btn" onclick="addResearchTool('Conduct a systematic review of')">Systematic Review</button></div></div>
+<div class="card"><div class="card-title">📄 Recent Papers</div><div style="display:flex;flex-direction:column;gap:8px"><div style="padding:10px;background:var(--bg4);border-radius:8px;cursor:pointer;font-size:13px"><strong>Attention Is All You Need</strong><br><span style="color:var(--text3)">Vaswani et al. • 98,421 citations</span></div><div style="padding:10px;background:var(--bg4);border-radius:8px;cursor:pointer;font-size:13px"><strong>BERT: Pre-training of Deep Bidirectional Transformers</strong><br><span style="color:var(--text3)">Devlin et al. • 72,115 citations</span></div><div style="padding:10px;background:var(--bg4);border-radius:8px;cursor:pointer;font-size:13px"><strong>Language Models are Few-Shot Learners</strong><br><span style="color:var(--text3)">Brown et al. • 31,204 citations</span></div></div></div>
+</div></div>
+</div>
+
+<!-- ═══ STUDY MODE ═══ -->
+<div class="page" id="page-study">
+<div id="study-wizard" style="display:none"></div>
+<div id="study-dashboard" style="display:none">
+<div style="display:flex;gap:16px;align-items:center;margin-bottom:20px;flex-wrap:wrap"><span class="streak-badge">🔥 <span id="study-streak">0</span> Days</span><span class="streak-badge" style="border-color:rgba(139,92,246,0.2);color:var(--purple)">⚡ <span id="study-xp">0</span> XP Today</span><span class="streak-badge" style="border-color:rgba(59,130,246,0.2);color:var(--accent)">📊 <span id="study-mastery">0</span>% Mastery</span></div>
+<div class="tab-bar" id="study-tabs"><button class="tab-btn active" style="border-color:var(--amber);color:var(--amber)" onclick="switchStudyTab(0)">📚 My Subjects</button><button class="tab-btn" onclick="switchStudyTab(1)">🃏 Flashcards</button><button class="tab-btn" onclick="switchStudyTab(2)">🧠 Quiz Mode</button><button class="tab-btn" onclick="switchStudyTab(3)">🤖 AI Tutor</button><button class="tab-btn" onclick="switchStudyTab(4)">📝 Smart Notes</button></div>
+<div class="tab-content active" id="study-tab-0"><div class="grid-3" id="subject-grid"></div><div class="grid-2" style="margin-top:20px"><div class="card" id="study-plan-card"><div class="card-title">📋 Today's Study Plan</div><div id="study-plan-content"><button class="action-btn" onclick="generateStudyPlan()">Generate Plan</button></div></div><div class="card"><div class="card-title">⚠️ Weak Areas</div><div id="weak-areas-content"><p style="color:var(--text3);font-size:13px">Complete quizzes to identify weak areas</p></div></div></div></div>
+<div class="tab-content" id="study-tab-1"><div class="card" style="max-width:600px;margin:0 auto"><div class="card-title">🃏 Generate Flashcards</div><select class="auth-input" id="fc-subject" onchange="updateFCTopics()"><option value="">Select Subject</option></select><select class="auth-input" id="fc-topic"><option value="">Select Topic</option></select><div style="display:flex;gap:8px;margin:10px 0"><button class="option-btn" onclick="setFCCount(10)">10</button><button class="option-btn selected" onclick="setFCCount(20)">20</button><button class="option-btn" onclick="setFCCount(30)">30</button></div><button class="action-btn primary" onclick="generateFlashcards()">Generate Flashcards</button></div><div id="fc-loading" class="loading-text" style="display:none"><div class="spinner"></div>Generating flashcards...</div><div id="fc-area" style="display:none"></div></div>
+<div class="tab-content" id="study-tab-2"><div class="card" style="max-width:600px;margin:0 auto" id="quiz-setup"><div class="card-title">🧠 Quiz Mode</div><select class="auth-input" id="quiz-subject" onchange="updateQuizTopics()"><option value="">Which subject?</option></select><select class="auth-input" id="quiz-topic"><option value="">Which topic/chapter?</option></select><div style="margin:10px 0"><label style="font-size:13px;color:var(--text2)">Questions:</label><div style="display:flex;gap:8px;margin-top:6px"><button class="option-btn" onclick="setQuizCount(5)">5</button><button class="option-btn selected" onclick="setQuizCount(10)">10</button><button class="option-btn" onclick="setQuizCount(15)">15</button><button class="option-btn" onclick="setQuizCount(20)">20</button></div></div><div style="margin:10px 0"><label style="font-size:13px;color:var(--text2)">Difficulty:</label><div style="display:flex;gap:8px;margin-top:6px"><button class="option-btn" onclick="setQuizDiff('Easy')">Easy</button><button class="option-btn selected" onclick="setQuizDiff('Medium')">Medium</button><button class="option-btn" onclick="setQuizDiff('Hard')">Hard</button><button class="option-btn" onclick="setQuizDiff('Mixed')">Mixed</button></div></div><button class="action-btn primary" onclick="startQuiz()" style="margin-top:12px">🎯 Start Quiz</button></div><div id="quiz-loading" class="loading-text" style="display:none"><div class="spinner"></div>Generating quiz...</div><div id="quiz-area" style="display:none"></div><div id="quiz-results" style="display:none"></div></div>
+<div class="tab-content" id="study-tab-3"><div class="chat-box" id="tutor-chat" style="height:520px"><div class="chat-messages" id="tutor-messages"></div><div class="chat-input-row"><textarea id="tutor-input" rows="1" placeholder="Ask your tutor anything..." onkeydown="handleChatKey(event,'tutor')"></textarea><button class="send-btn" style="background:var(--amber)" onclick="sendTutorChat()">➤</button></div></div></div>
+<div class="tab-content" id="study-tab-4"><div class="layout-row"><div class="layout-main"><div class="card"><div class="card-title">📝 Smart Notes</div><select class="auth-input" id="notes-subject"><option value="">Select Subject (optional)</option></select><textarea class="auth-input" id="notes-input" rows="8" placeholder="Paste your raw notes here..." style="resize:vertical"></textarea><div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:10px"><button class="action-btn primary" onclick="processNotes('transform')">✨ Transform Notes</button><button class="action-btn" onclick="processNotes('summary')">📌 Create Summary</button><button class="action-btn" onclick="processNotes('formulas')">🧪 Extract Formulas</button><button class="action-btn" onclick="processNotes('questions')">❓ Generate Questions</button></div></div></div><div class="layout-sidebar"><div class="card" id="notes-output"><div class="card-title">Output</div><p style="color:var(--text3);font-size:13px">Transform your notes to see results here</p></div></div></div></div>
+</div>
+</div>
+
+<!-- ═══ PERSONALISE MODE ═══ -->
+<div class="page" id="page-personal">
+<div class="hero" style="border-color:rgba(236,72,153,0.2)"><div class="hero-tags"><span class="hero-tag" style="border-color:var(--pink);color:var(--pink)">✨ Personalise</span></div><h2 style="color:var(--pink)">Your Creative Workspace & Productivity Suite</h2><p>16 AI-powered tools for writing, coding, learning, and productivity.</p></div>
+<input class="search-input" id="tool-search" placeholder="🔍 Search tools..." oninput="filterTools()" style="margin-bottom:20px">
+<div class="grid-4" id="tool-grid"></div>
+<div id="tool-panel-area"></div>
+</div>
+
+</div><!-- end platform -->
+
+<!-- MODAL FOR COMPETITORS -->
+<div id="comp-modal" class="modal-overlay" style="display:none" onclick="if(event.target===this)this.style.display='none'"><div class="modal"><h3>Add Competitor</h3><input class="auth-input" id="comp-name-input" placeholder="Competitor name (e.g. OpenAI)"><button class="action-btn primary" onclick="addCompetitor()">Analyse Competitor</button></div></div>
+
+<script src="app.js"></script>
+<script src="study.js"></script>
+<script src="personal.js"></script>
+</body>
+</html>

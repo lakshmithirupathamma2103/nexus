@@ -1,0 +1,6 @@
+flask
+flask-cors
+google-generativeai
+crawl4ai
+PyPDF2
+python-dotenv

@@ -1,0 +1,18 @@
+{
+  "users": [
+    {
+      "id": "6d6da1ab",
+      "username": "test",
+      "email": "test@test.com",
+      "password_hash": "ecd71870d1963316a97e3ac3408c9835ad8cf0f3c1bc703527c30265534f75ae",
+      "created_at": "2026-04-06T21:19:57.256584"
+    },
+    {
+      "id": "7f8efbf9",
+      "username": "lakshmi",
+      "email": "thirupathamma2103@gmail.com",
+      "password_hash": "bb7b353c12dd81c9c6dbb8ce1d9e63363576987d55736f9aa1fd419e7445b844",
+      "created_at": "2026-04-06T21:25:50.640377"
+    }
+  ]
+}
